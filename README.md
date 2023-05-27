@@ -24,7 +24,7 @@
 
 ## git commit
 - update working tree
-- just take the folder_id and 
+- just take the folder_id and and commit_id and merge it
 
 ## git log
 - git graph
@@ -41,9 +41,7 @@
 - [x] Add function algorithm
 - [] Add function k liye helper function
 - [] implementation Add function
-- [] Commit function algorithm
-- [] Implementation
-- [] Commit function algorithm
+- [] Commit function
 - [] Git log implementaion
 - [] isFileChange function
 - [] gitstatus function
