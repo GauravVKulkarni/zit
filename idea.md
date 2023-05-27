@@ -7,14 +7,13 @@ Tables
 
 
  <!-- imporved idea  -->
- - working tree (commit_id unique primary  key, message, branch_id, Branch_name)
+ - working tree (commit_id unique primary key, message, Branch_name, time Text)
  - commitfolders(commit_id, folder_id, file_id)
- - folder (folder_id, folder_name, folder_id, file_id)
+ - folder (folder_id, folder_name, subfolder_id, file_id)
  - files (id, file_name, content)
 
 git add .
 - sab file/folder add karne hai
-- 
 
 git commit
 -
