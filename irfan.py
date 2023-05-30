@@ -43,7 +43,6 @@ def add(root):
     try:
         ignore = get_file_content(pathofzitignore)
         for files in ignore.split('\n'):
-            print(files)
             zitignore.append(os.path.join(root, files.encode('utf-8')))
     except TypeError:
         pass
@@ -51,13 +50,9 @@ def add(root):
     subfolders = ','.join(map(str, ids))
     insert_file_folder(name=root, subfolder=subfolders)
     root_id = get_last_id()
-    # adding root_id to staging area
-    
-    # print(zitignore)
 
 
 def add_files(root, zitignore):
-    print(root)
     id_list = []
     if len(os.listdir(root)) == 0:
         #  add that folder to the database
@@ -69,12 +64,8 @@ def add_files(root, zitignore):
         return id_list
     
     for name in os.listdir(root):
-        print(name)
         fullPath = os.path.join(root, name)
         if fullPath in zitignore:
-            print("ignoring", name)
-            continue
-        if str(name).startswith("b'."):
             print("ignoring", name)
             continue
         
