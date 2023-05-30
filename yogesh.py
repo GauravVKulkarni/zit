@@ -27,6 +27,7 @@ def get_turtle():
     screen.setup(width=800, height=600)
     screen.bgcolor('white')
     t = turtle.Turtle()
+    t.speed()
     t.penup()
     t.goto(-250, 250)
     t.pendown()
@@ -35,13 +36,13 @@ def get_turtle():
     def draw_commit(commit_id, message, branch_name, time):
         t.write(f'Commit ID: {commit_id}\nMessage: {message}\nBranch: {branch_name}\nTime: {time}', align='left', font=('Arial', 12))
         t.penup()
-        t.goto(-250, t.ycor() - 100)  # Adjust the distance between logs here
+        t.goto(-50, t.ycor() - 100)  # Adjust the distance between logs here
         t.pendown()
 
     def draw_git_log():
         t.write('Git Log', align='center', font=('Arial', 16, 'bold'))
         t.penup()
-        t.goto(-250, t.ycor() - 50)
+        t.goto(-50, t.ycor() - 50)
         t.pendown()
         
         for i in range(len(commits)):
@@ -54,6 +55,8 @@ def get_turtle():
 
     cursor.close()
     conn.close()
+
+get_turtle()
 
 
 
