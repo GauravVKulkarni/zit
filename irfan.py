@@ -38,6 +38,26 @@ def init():
     
 
 def add(root):
+    zitignore = []
+    pathofzitignore = os.path.join(root, b'.zitignore')
+    try:
+        ignore = get_file_content(pathofzitignore)
+        for files in ignore.split('\n'):
+            print(files)
+            zitignore.append(os.path.join(root, files.encode('utf-8')))
+    except TypeError:
+        pass
+    ids = add_files(root, zitignore)
+    subfolders = ','.join(map(str, ids))
+    insert_file_folder(name=root, subfolder=subfolders)
+    root_id = get_last_id()
+    # adding root_id to staging area
+    
+    # print(zitignore)
+
+
+def add_files(root, zitignore):
+    print(root)
     id_list = []
     if len(os.listdir(root)) == 0:
         #  add that folder to the database
@@ -48,22 +68,29 @@ def add(root):
         id_list.append(id)
         return id_list
     
-    for path in os.listdir(root):
-        # if path == '.zit':
-        #     continue
-        if os.path.isfile(os.path.join(root, path)):
+    for name in os.listdir(root):
+        print(name)
+        fullPath = os.path.join(root, name)
+        if fullPath in zitignore:
+            print("ignoring", name)
+            continue
+        if str(name).startswith("b'."):
+            print("ignoring", name)
+            continue
+        
+        if os.path.isfile(fullPath):
             # add to file
-            content = get_file_content(os.path.join(root, path))
-            insert_file_folder(name=os.path.join(root, path), content=content)
+            content = get_file_content(fullPath)
+            insert_file_folder(name=fullPath, content=content)
             # get the last row id
             id = get_last_id()
             # append that id to the list
             id_list.append(id)
         else:
-            ids = add(os.path.join(root, path))
+            ids = add_files(fullPath, zitignore)
             # add that id with name of root, and subfolder as null and that id to file_id
             subfolderid = ','.join(map(str, ids))
-            insert_file_folder(name=os.path.join(root, path), subfolder_id=subfolderid)
+            insert_file_folder(name=fullPath, subfolder=subfolderid)
             # get the last row id
             id = get_last_id()
             # append that id to the id_list
