@@ -15,7 +15,7 @@ def insert_add():
     db = sqlite3.connect('.zit/database.db')
     cursor = db.cursor()
 
-def get_last_id():
+def get_last_id(path):
     db = sqlite3.connect('.zit/database.db')
     cursor = db.cursor()
     return cursor.execute("SELECT id from folder where path=?",(path))
