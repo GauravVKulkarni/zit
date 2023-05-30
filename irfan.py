@@ -6,29 +6,29 @@ from yogesh import get_file_content
 
 
 def init():
-    #create .git folder
-    os.mkdir('.zit')
     
     # check if the database already exists
     if os.path.exists('.zit/database.db'):
         print('error: zit already initialized')
         return
     
+    #create .git folder
+    os.mkdir('.zit')
     # make database.db in that folder and create the tables
     # os.chdir('.zit')
     db = sqlite3.connect('.zit/database.db')
     cursor = db.cursor()
     
     # - working tree (commit_id unique primary  key, message, Branch_name, time TEXT)
-    createtableCommand1 = '''CREATE TABLE working_tree(id INTEGER PRIMARY KEY, message TEXT, branch_name TEXT DEFAULT 'master', time TEXT, add_id INTEGER, folder_file_id)'''
+    createtableCommand1 = '''CREATE TABLE working_tree(id INTEGER PRIMARY KEY AUTOINCREMENT, message TEXT, branch_name TEXT DEFAULT 'master', time TEXT, add_id INTEGER, folder_file_id)'''
     # - commitfolders(commit_id, folder_id, file_id)
-    createtableCommand2 = '''CREATE TABLE add(id INTEGER PRIMARY KEY, folder_file_id INTEGER)'''
+    createtableCommand2 = '''CREATE TABLE add(id INTEGER PRIMARY KEY AUTOINCREMENT, folder_file_id INTEGER)'''
     # - folder (folder_id, folder_name, folder_file_id, content)
-    createtableCommand3 = '''CREATE TABLE folder(id INTEGER PRIMARY KEY, path TEXT, subfolder_file_id TEXT, content TEXT)'''
+    createtableCommand3 = '''CREATE TABLE folder(id INTEGER PRIMARY KEY AUTOINCREMENT, path TEXT, subfolder_file_id TEXT, content TEXT)'''
     
     # excute the commands
     cursor.execute(createtableCommand1)
-    cursor.execute(createtableCommand2)
+    # cursor.execute(createtableCommand2)
     cursor.execute(createtableCommand3)
     
     # commiting changes
@@ -49,10 +49,12 @@ def add(root):
         return id_list
     
     for path in os.listdir(root):
+        # if path == '.zit':
+        #     continue
         if os.path.isfile(os.path.join(root, path)):
             # add to file
             content = get_file_content(os.path.join(root, path))
-            insert_file_folder(name=os.path.join(root, path),content=content)
+            insert_file_folder(name=os.path.join(root, path), content=content)
             # get the last row id
             id = get_last_id()
             # append that id to the list
@@ -60,7 +62,8 @@ def add(root):
         else:
             ids = add(os.path.join(root, path))
             # add that id with name of root, and subfolder as null and that id to file_id
-            insert_file_folder(name=os.path.join(root, path), subfolder_id=ids)
+            subfolderid = ','.join(map(str, ids))
+            insert_file_folder(name=os.path.join(root, path), subfolder_id=subfolderid)
             # get the last row id
             id = get_last_id()
             # append that id to the id_list
