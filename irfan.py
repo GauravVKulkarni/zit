@@ -4,7 +4,7 @@ import sqlite3
 def init():
     #create .git folder
     os.mkdir('.zit')
-    
+    print("Done")
     # make database.db in that folder and create the tables
     # os.chdir('.zit')
     db = sqlite3.connect('.zit/database.db')

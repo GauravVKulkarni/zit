@@ -6,6 +6,7 @@ from irfan import init
 
 def main():
     # check len is greater than 1
+        
     if len(sys.argv) < 2:
         sys.exit('Invalid command => Usage: git.py <command> <options>')
     # commands for now
