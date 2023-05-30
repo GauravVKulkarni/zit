@@ -24,7 +24,11 @@ def init():
     # - commitfolders(commit_id, folder_id, file_id)
     createtableCommand2 = '''CREATE TABLE add(id INTEGER PRIMARY KEY, folder_file_id INTEGER)'''
     # - folder (folder_id, folder_name, folder_file_id, content)
+<<<<<<< HEAD
     createtableCommand3 = '''CREATE TABLE folder(id INTEGER PRIMARY KEY, add id path TEXT, subfolder_file_id TEXT, content TEXT)'''
+=======
+    createtableCommand3 = '''CREATE TABLE folder(id INTEGER PRIMARY KEY, path TEXT, subfolder_file_id TEXT, content TEXT)'''
+>>>>>>> f58a58a52cf553e2a4ce54c6116e745b1a4c96a6
     
     # excute the commands
     cursor.execute(createtableCommand1)
