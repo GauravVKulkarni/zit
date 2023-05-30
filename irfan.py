@@ -22,7 +22,7 @@ def init():
     # - commitfolders(commit_id, folder_id, file_id)
     createtableCommand2 = '''CREATE TABLE commitfolders(commit_id INTEGER, folder_file_id INTEGER)'''
     # - folder (folder_id, folder_name, folder_file_id, content)
-    createtableCommand3 = '''CREATE TABLE folder(id INTEGER PRIMARY KEY, path TEXT, subfolder_file_id INTEGER, content TEXT)'''
+    createtableCommand3 = '''CREATE TABLE folder(id INTEGER PRIMARY KEY, path TEXT, subfolder_file_id TEXT, content TEXT)'''
     
     # excute the commands
     cursor.execute(createtableCommand1)
