@@ -1,7 +1,5 @@
-# !C:\msys64\mingw64\bin\python.exe
 import os
 import sqlite3
-import pathlib
 # from yogesh import working_tree_insert, commitfolders_insert, folder_insert, files_insert
 
 
