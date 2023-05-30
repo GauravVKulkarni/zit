@@ -29,6 +29,10 @@ master_arrow.showturtle()
 master_arrow.pendown()
 master_arrow.write("commit", align='left', font=("Arial", 12, "bold"))
 master_arrow.goto(0,80)
+
+
+
+
 turtle.mainloop()
 
 
