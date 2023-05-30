@@ -42,12 +42,12 @@ def add(root):
     if len(os.listdir(root)) == 0:
         #  add that folder to the database
         insert_file_folder()
-        # #  get the last row id
-        # id = get_last_id()
-        # #  append that id to the list
-        # id_list.append(id)
-
+        #  get the last row id
+        id = get_last_id()
+        #  append that id to the list
+        id_list.append(id)
         return id_list
+    
     for path in os.listdir(root):
         if os.path.isfile(os.path.join(root, path)):
             # add to file
