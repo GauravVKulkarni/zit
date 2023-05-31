@@ -38,6 +38,8 @@ def get_turtle():
         t.penup()
         t.goto(-50, t.ycor() - 100)  # Adjust the distance between logs here
         t.pendown()
+        t.penup()
+        t.goto()
 
     def draw_git_log():
         t.write('Git Log', align='center', font=('Arial', 16, 'bold'))
