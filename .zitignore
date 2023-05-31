@@ -3,5 +3,6 @@ __pycache__
 .git
 basit.py
 gaurav.py
-irfan.py
 yogesh.py
+build
+dist

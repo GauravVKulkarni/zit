@@ -1,4 +1,5 @@
-
+import sqlite3
+from basit import get_subid_by_id, delete_row_by_id
 # def function jo insert karta
 
 # - working tree (commit_id unique primary key, message, Branch_name, time Text)
@@ -17,5 +18,14 @@ def get_file_content(file_path):
         print("File not found.", file_path)
         return None
 
+def delete_files_from_database(table, id):
+    print(table, id)
+    subfolders = get_subid_by_id('folder', id)
+    delete_row_by_id(table, id)
+    if subfolders is None:
+        return
+    print(subfolders)
+    for subfolder in map(int, subfolders.split(',')):
+        delete_files_from_database(table, subfolder)
 
-
+# if __name__ == '__main__':
