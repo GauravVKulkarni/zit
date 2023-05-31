@@ -20,7 +20,7 @@ def init():
     cursor = db.cursor()
     
     # - working tree (commit_id unique primary  key, message, Branch_name, time TEXT)
-    createtableCommand1 = '''CREATE TABLE working_tree(id INTEGER PRIMARY KEY AUTOINCREMENT, message TEXT, branch_name TEXT DEFAULT 'master', time TEXT, add_id INTEGER, folder_file_id)'''
+    createtableCommand1 = '''CREATE TABLE working_tree(id INTEGER PRIMARY KEY AUTOINCREMENT, message TEXT, branch_name TEXT DEFAULT 'master', time TEXT, add_id INTEGER, folder_file_id TEXT)'''
     # - commitfolders(commit_id, folder_id, file_id)
     createtableCommand2 = '''CREATE TABLE add(id INTEGER PRIMARY KEY AUTOINCREMENT, folder_file_id INTEGER)'''
     # - folder (folder_id, folder_name, folder_file_id, content)
@@ -38,55 +38,68 @@ def init():
     
 
 def add(root):
+
+    def add_files(root, zitignore):
+        print(root)
+        id_list = []
+        if len(os.listdir(root)) == 0:
+            #  add that folder to the database
+            print("working")
+            insert_file_folder()
+            #  get the last row id
+            id = get_last_id()
+            #  append that id to the list
+            id_list.append(id)
+            return id_list
+        
+        for name in os.listdir(root):
+            fullPath = os.path.join(root, name)
+            if fullPath in zitignore or name == b'.zit' or name == b'.git':
+                print("ignoring", name)
+                continue
+            
+            if os.path.isfile(fullPath):
+                # add to file
+                content = get_file_content(fullPath)
+                # to identify the the row in folder is 
+                insert_file_folder(name=fullPath, content=content)
+                # get the last row id
+                id = get_last_id()
+                # append that id to the list
+                id_list.append(id)
+            else:
+                ids = add_files(fullPath, zitignore)
+                # add this ids to subfolder and the name with the fullpath
+                subfolderid = ','.join(map(str, ids))
+                insert_file_folder(name=fullPath, subfolder=subfolderid)
+                # get the last row id
+                id = get_last_id()
+                # append that id to the id_list
+                id_list.append(id)
+        return id_list
+    
+
     zitignore = []
-    pathofzitignore = os.path.join(root, b'.zitignore')
-    try:
-        ignore = get_file_content(pathofzitignore)
-        for files in ignore.split('\n'):
-            zitignore.append(os.path.join(root, files.encode('utf-8')))
-    except TypeError:
-        pass
+    if os.path.exists('.zitignore'):
+        try:
+            pathofzitignore = os.path.join(root, b'.zitignore')
+            with open(pathofzitignore) as f:
+                zitignore = list(map(lambda x: os.path.join(root, x.strip().encode('utf-8')), f.readlines()))
+                print(zitignore)
+        except TypeError:
+            print("error: can not read .zitignore file")
+    else:
+        print("no .zitignore file found")
     ids = add_files(root, zitignore)
     subfolders = ','.join(map(str, ids))
     insert_file_folder(name=root, subfolder=subfolders)
     root_id = get_last_id()
+    # add the 
 
 
-def add_files(root, zitignore):
-    id_list = []
-    if len(os.listdir(root)) == 0:
-        #  add that folder to the database
-        insert_file_folder()
-        #  get the last row id
-        id = get_last_id()
-        #  append that id to the list
-        id_list.append(id)
-        return id_list
-    
-    for name in os.listdir(root):
-        fullPath = os.path.join(root, name)
-        if fullPath in zitignore:
-            print("ignoring", name)
-            continue
-        
-        if os.path.isfile(fullPath):
-            # add to file
-            content = get_file_content(fullPath)
-            insert_file_folder(name=fullPath, content=content)
-            # get the last row id
-            id = get_last_id()
-            # append that id to the list
-            id_list.append(id)
-        else:
-            ids = add_files(fullPath, zitignore)
-            # add that id with name of root, and subfolder as null and that id to file_id
-            subfolderid = ','.join(map(str, ids))
-            insert_file_folder(name=fullPath, subfolder=subfolderid)
-            # get the last row id
-            id = get_last_id()
-            # append that id to the id_list
-            id_list.append(id)
-    return id_list
+def commit():
+    pass
+
     
 
 

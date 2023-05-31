@@ -59,11 +59,11 @@ def get_turtle():
 
 def get_file_content(file_path):
     try:
-        with open(file_path, 'r') as file:
+        with open(file_path, 'rb') as file:
             content = file.read()
             return content
     except FileNotFoundError:
-        print("File not found.")
+        print("File not found.", file_path)
         return None
 
 

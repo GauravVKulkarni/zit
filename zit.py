@@ -1,9 +1,7 @@
-
-
 import sqlite3
 import os
 import sys
-from irfan import init, add
+from irfan import init, add, commit
 
 
 def main():
@@ -11,16 +9,12 @@ def main():
         
     if len(sys.argv) < 2:
         sys.exit('Invalid command => Usage: git.py <command> <options>')
-    # commands for now
-    # git.py init
-    # git.py add <file>
-    # git.py commit -m <message>
-    # git.py status
-    # git.py log
     command = sys.argv[1]
     match command:
+        # git.py init
         case 'init':
             init()
+        # git.py add <file>
         case 'add':
             #  check the len of the sys.argv
             if len(sys.argv) != 3:
@@ -32,19 +26,25 @@ def main():
 
             # check if atleast one file is given
             try:
+                print(os.getcwdb())
                 add(os.getcwdb())
             except:
                 sys.exit('error: something went wrong')
             print('File added successfully')
-        # case 'commit':
-        #     # check len of the sys.argv
-        #     # check m flag
-        #     if len(sys.argv) > 3 and sys.argv[2] != '-m' and len(sys.argv[3]) == 0:
-        #         sys.exit('Invalid command => Usage: git.py commit -m <message>')
-        #     message = sys.argv[3]
-        #     commit(message)
+        # git.py commit -m <message>
+        case 'commit':
+            if len(sys.argv) > 5:
+                sys.exit('Invalid command => Usage: git.py commit -m <message>')
+            if sys.argv[2] != '-m':
+                sys.exit('Invalid command => Usage: git.py commit -m <message>')
+            if type(sys.argv[3]) != "string":
+                sys.exit('Invalid command => Usage: git.py commit -m <message>')
+            message = sys.argv[3]
+            commit(message)
+        # git.py status
         # case 'status':
         #     status()
+        # git.py log
         # case 'log':
         #     log()
         case _:
