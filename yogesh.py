@@ -99,7 +99,7 @@ def log():
             t.penup()
             t.goto(-250, 250)
             t.pendown()
-            t.write('Git Log', align='center', font=('Arial', 16, 'bold'))
+            t.write('Zit Log', align='center', font=('Arial', 16, 'bold'))
             t.penup()
             t.goto(-240, t.ycor() - 50)  # Adjust the horizontal position of the first bullet point
             t.pendown()
