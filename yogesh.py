@@ -47,7 +47,7 @@ def log():
 
     def create_scrollable_window():
         root = tk.Tk()
-        root.title("Git Log")
+        root.title("Zit Log")
         root.geometry("800x600")
 
         # Create a canvas widget
