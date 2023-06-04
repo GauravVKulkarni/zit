@@ -4,6 +4,7 @@ import sys
 from irfan import init, add, commit
 from gaurav import clone, push, pull
 import re
+from yogesh import log
 
 
 def main():
@@ -62,9 +63,13 @@ def main():
         # git.py status
         # case 'status':
         #     status()
+        
         # git.py log
-        # case 'log':
-        #     log()
+        case 'log':
+            if len(sys.argv) != 2:
+                sys.exit('Invalid command => Usage: git.py clone 1')
+            log()
+            
         case _:
             print('Invalid command => Usage: git.py <command> <options>')
             
