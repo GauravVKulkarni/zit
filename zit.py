@@ -3,6 +3,7 @@ import os
 import sys
 from irfan import init, add, commit
 from gaurav import clone, push, pull
+import re
 
 
 def main():
@@ -51,9 +52,13 @@ def main():
             pull() 
             pass
         case 'clone':
-            if len(sys.argv) != 2:
-                sys.exit('Invalid command => Usage: git.py clone 1')
-            clone()
+            if len(sys.argv) != 3:
+                sys.exit('Invalid command => Usage: git.py clone <url> 1')
+            url = sys.argv[2]
+            if re.match(r'^http://\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:5000/.+/.+$', url) is None:
+                print("Your url is not valid : ", url)
+                sys.exit('Invalid command => Usage: git.py clone <url> 2')
+            clone(url)
         # git.py status
         # case 'status':
         #     status()

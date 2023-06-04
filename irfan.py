@@ -34,22 +34,20 @@ def init():
     # commiting changes
     db.commit()
     db.close()
-    print('success: zit initialized')
+    print('zit initialized successfully')
     
 
 def add(root):
 
     def add_files(root, zitignore):
-        print(root)
         id_list = []
         if len(os.listdir(root)) == 0:
-            #  add that folder to the database
-            print("working")
-            insert_file_folder(name=root)
-            #  get the last row id
-            id = get_last_id()
-            #  append that id to the list
-            id_list.append(id)
+            # #  add that folder to the database
+            # insert_file_folder(name=root)
+            # #  get the last row id
+            # id = get_last_id()
+            # #  append that id to the list
+            # id_list.append(id)
             return id_list
         
         for name in os.listdir(root):
@@ -82,11 +80,10 @@ def add(root):
     # checking the commit is done or not
     last_id_of_working_tree = get_last_id('working_tree')
     last_id_of_staging_area = get_last_id('staging_area')
-    print(last_id_of_working_tree, last_id_of_staging_area)
     #if the commmit is not done yet delete the files from the database
     if last_id_of_working_tree < last_id_of_staging_area:
         #delete the files from the database
-        print("deleting files from the database")
+        print("Replacing files")
         subfolders = list(map(int, get_subid_by_id('staging_area', last_id_of_staging_area).split(',')))
         for id in subfolders:
             delete_files_from_database("folder", id)
@@ -100,7 +97,6 @@ def add(root):
             pathofzitignore = os.path.join(root, b'.zitignore')
             with open(pathofzitignore) as f:
                 zitignore = list(map(lambda x: os.path.join(root, x.strip().encode('utf-8')), f.readlines()))
-                print(zitignore)
         except TypeError:
             print("error: can not read .zitignore file")
     else:
@@ -129,7 +125,7 @@ def commit(message):
     folders = get_subid_by_id('staging_area', id)
     # insert the last row of staging_area to working_tree
     insert_working_tree(message=message, folders=folders)
-    print("commit done")
+    print("committed")
 
 # def status():
 #     modified = []
@@ -146,19 +142,19 @@ def commit(message):
 #     compare(folder_file_id, modified, deleted, added, folder_file_id)
 
 def database_to_filesystem(id, path, ignoreFiles):
-    print(id)
     # get the folder_file_id of the last row of working_tree
     folder_file_id = get_subid_by_id('folder', id)
-    print(folder_file_id)
+    if folder_file_id == '':
+        return
 
     # itterate over the folder_file_id
     for subfilesid in list(map(int, folder_file_id.split(','))):
         files = get_row_by_id(subfilesid)
-        print(subfilesid)
         isfile = files[4]
         content = files[3]
         name = files[1][2:-1]
         folder_file_id = files[2]
+        print(f'Extracting {os.path.join(path, name)}')
         if isfile == 'YES':
             # write the content to the file
             with open(os.path.join(path,name), 'wb') as file:
@@ -166,11 +162,6 @@ def database_to_filesystem(id, path, ignoreFiles):
         else:
             # create a folder
             os.mkdir(os.path.join(path, name))
-            # # change the directory to that folder
-            # os.chdir(os.path.join(path, name))
-            # # change the directory to the parent folder
-            # os.chdir('..')
-            # recursively call the function
             database_to_filesystem(subfilesid, os.path.join(path, name), ignoreFiles)
 
 

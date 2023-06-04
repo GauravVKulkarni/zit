@@ -1,8 +1,9 @@
-import os
 import sqlite3
 from datetime import datetime
+import os
 
 def insert_file_folder(name,content=None,isfile='NO', subfolder=None):
+    print(f"Inserting {name} in the folder")
     name = str(name)
     db = sqlite3.connect('.zit/database.db')
     cursor = db.cursor()
@@ -11,6 +12,7 @@ def insert_file_folder(name,content=None,isfile='NO', subfolder=None):
     db.close()
 
 def insert_staging_area(subfolder):
+    print(f"Inserting into staging area with subfolder {subfolder}")
     db = sqlite3.connect('.zit/database.db')
     cursor = db.cursor()
     cursor.execute("INSERT INTO staging_area (folder_file_id) VALUES (?)", (subfolder,))
@@ -31,6 +33,8 @@ def insert_working_tree(message, folders, branch_name='master'):
     db.commit()
     db.close()
 
+    print(f"[{branch_name} (root-commit) {get_last_id('working_tree')}] {message}")
+
 def get_last_id(table='folder'):
     db = sqlite3.connect('.zit/database.db')
     cursor = db.cursor()
@@ -44,6 +48,7 @@ def get_last_id(table='folder'):
 
 def delete_row_by_id(table_name, id):
     # Connect to the database
+    print(f"Deleting {table_name} with id {id}")
     conn = sqlite3.connect('.zit/database.db')
     cursor = conn.cursor()
 
@@ -57,18 +62,20 @@ def delete_row_by_id(table_name, id):
 
 def get_subid_by_id(table_name, id):
     # Connect to the database
-    print(os.getcwd(), id)
     conn = sqlite3.connect('.zit/database.db')
     cursor = conn.cursor()
 
     # Execute the select statement
     cursor.execute(f"SELECT folder_file_id FROM {table_name} WHERE id = ?", (id,))
 
-    row = cursor.fetchone()[0]
-
-    # Close the cursor and connection
-    cursor.close()
-    conn.close()
+    try:
+        row = cursor.fetchone()[0]
+    except TypeError:
+        return None
+    finally:
+        # Close the cursor and connection
+        cursor.close()
+        conn.close()
 
     return row
 

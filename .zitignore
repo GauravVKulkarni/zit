@@ -1,8 +1,5 @@
 __pycache__
 .gitignore
 .git
-basit.py
-gaurav.py
-yogesh.py
 build
 dist

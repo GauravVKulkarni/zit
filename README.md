@@ -48,13 +48,13 @@
 - [x] Add function algorithm
 - [x] Add function k liye helper function
 - [x] implementation Add function
-- [] Commit function
+- [x] Commit function
 - [x] Git log implementaion
 - [] isFileChange function
 - [] gitstatus function
-- [] flask app
-- [] pi setup
-- [] git push
-- [] git pull
+- [x] flask app
+- [x] pi setup
+- [x] git push
+- [x] git pull
 
 ```
