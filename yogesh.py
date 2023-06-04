@@ -40,8 +40,10 @@ def log():
     cursor = conn.cursor()
 
     # Retrieve data from the database
-    cursor.execute("SELECT * FROM working_tree")
+    # Retrieve data from the database
+    cursor.execute("SELECT commit_id, message, branch_name, time FROM working_tree")
     commits = cursor.fetchall()
+
 
     def create_scrollable_window():
         root = tk.Tk()
