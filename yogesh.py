@@ -41,7 +41,7 @@ def log():
 
     # Retrieve data from the database
     # Retrieve data from the database
-    cursor.execute("SELECT commit_id, message, branch_name, time FROM working_tree")
+    cursor.execute("SELECT id, message, branch_name, time FROM working_tree")
     commits = cursor.fetchall()
 
 
@@ -81,7 +81,7 @@ def log():
             t.penup()
             t.pendown()
 
-        def draw_commit(commit_id, message, branch_name, time):
+        def draw_commit(id, message, branch_name, time):
             draw_bullet_point()
             t.penup()
             t.goto(-200, t.ycor())  # Adjust the horizontal position of the bullet point
@@ -108,8 +108,8 @@ def log():
                 t.write("No Data", align='left', font=('Arial', 12))
             else:
                 for commit in commits:
-                    commit_id, message, branch_name, time = commit
-                    draw_commit(commit_id, message, branch_name, time)
+                    id, message, branch_name, time = commit
+                    draw_commit(id, message, branch_name, time)
 
             # Update the scrollable region
             frame.update_idletasks()
