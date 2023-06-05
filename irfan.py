@@ -8,7 +8,8 @@ from yogesh import get_file_content, delete_files_from_database
 def init():
     
     # check if the database already exists
-    if os.path.exists('.zit/database.db'):
+    print(os.path.exists('.zit//database.db'))
+    if os.path.exists('.zit//database.db'):
         print('error: zit already initialized')
         return
     
