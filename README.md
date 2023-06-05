@@ -16,6 +16,13 @@
  - commitfolders(commit_id, folder_file_id)
  - folder_file(id, path, subfolder_file_id, content)
 
+## imporved idea 
+    working_tree(id INTEGER PRIMARY KEY AUTOINCREMENT, message TEXT, branch_name TEXT DEFAULT 'master', time TEXT, add_id INTEGER, folder_file_id TEXT)
+
+    Staging_area(id INTEGER PRIMARY KEY AUTOINCREMENT, )
+
+    Files(id INTEGER PRIMARY KEY AUTOINCREMENT, path TEXT, subfolder_file_id TEXT, content TEXT)
+
 # Functions
 
 ## git add .
@@ -39,15 +46,15 @@
 
 - [x] Table Layout
 - [x] Add function algorithm
-- [] Add function k liye helper function
-- [] implementation Add function
-- [] Commit function
-- [] Git log implementaion
+- [x] Add function k liye helper function
+- [x] implementation Add function
+- [x] Commit function
+- [x] Git log implementaion
 - [] isFileChange function
 - [] gitstatus function
-- [] flask app
-- [] pi setup
-- [] git push
-- [] git pull
+- [x] flask app
+- [x] pi setup
+- [x] git push
+- [x] git pull
 
 ```

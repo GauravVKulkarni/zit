@@ -1,5 +1,6 @@
 # ignore .zit folder
 .zit
+test/server/uploads
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
