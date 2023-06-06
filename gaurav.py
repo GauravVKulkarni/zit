@@ -79,9 +79,6 @@ def push():
             ip = file.readline().strip()
 
     while True:
-        if not os.path.exists('.zit/config'):
-            username = input("Your Username : ").strip()
-            password = input("Your password : ").strip()
 
         if not os.path.exists('.zit/ip.txt'):
             ip = input("Ip: ").strip()
@@ -89,6 +86,11 @@ def push():
                 registerLogin = input("Do you already have an account (Y/N): ").strip()
                 if registerLogin.lower() == 'y' or registerLogin.lower() == 'n':
                     break
+
+        if not os.path.exists('.zit/config'):
+            username = input("Your Username : ").strip()
+            password = input("Your password : ").strip()
+
 
         # reading file content
         with open(".zit/database.db", "rb") as file:
