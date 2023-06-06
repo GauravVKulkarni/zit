@@ -4,19 +4,6 @@ import re
 import socket
 
 app = Flask(__name__)
-
-# Sample data - Replace this with your actual data retrieval logic
-users = [
-    {
-        'username': 'user1',
-        'files': ['filename1', 'filename2', 'filename3']
-    },
-    {
-        'username': 'user2',
-        'files': ['filename1', 'filename2']
-    }
-]
-
 @app.route('/')
 def index():
     html = """
@@ -101,7 +88,14 @@ def index():
     <body>
         <h1>ZITHUB</h1>
     """
-    
+
+    if not os.path.exists("uploads"):
+        html += """
+            </body>
+            </html>
+            """
+        return html 
+
     for user in os.listdir(os.path.join(os.getcwd(), "uploads")):
         html += f"""
         <div class="card">
@@ -169,7 +163,7 @@ def upload():
                 #create a password file in that folder as password.txt
                 with open(os.path.join(os.getcwd(), "uploads", username, 'password.txt'), 'w') as file:
                     file.write(password)
-        else:
+        else: 
             # check username and password
             if not os.path.exists(os.path.join(os.getcwd(), "uploads", username)):
                 return "username does not exist"
@@ -191,7 +185,7 @@ def download_file():
             return 'Incorrect password'
     # Construct the file path
     user_folder = os.path.join(os.getcwd(), "uploads", username)
-    file_path = os.path.join(user_folder, repo_name + '.db') 
+    file_path = os.path.join(user_folder, repo_name + '.db')
     if os.path.exists(file_path):
         return send_file(file_path, mimetype='application/octet-stream', as_attachment=True)
     else:
