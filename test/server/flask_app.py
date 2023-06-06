@@ -140,6 +140,9 @@ def general():
     
 @app.route('/upload', methods=['POST'])
 def upload():
+    if not os.path.exists(os.path.join(os.getcwd(), "uploads")):
+        # create a folder in the uploads folder
+        os.mkdir(os.path.join(os.getcwd(), "uploads"))
     if request.method == 'POST':
         # info
         f = request.files['file']
