@@ -1,6 +1,6 @@
 import os
 
-def index(ip_address):
+def index():
     html = """
     <!DOCTYPE html>
     <html>
@@ -51,6 +51,10 @@ def index(ip_address):
                 margin-top: 10px;
                 cursor: pointer;
             }
+            .copy-button:hover {
+                color:white;
+                background-color:black;
+            }
 
             .tick-mark {
                 color: #4CAF50;
@@ -60,11 +64,8 @@ def index(ip_address):
 
         <title>ZITHUB</title>
         <script>
-            function copyToClipboard(file, user) {
-                console.log(file, user)
-                var ip_address = """+f"'{ip_address}'"+""";
-                var filename = file.slice(0, -3)
-                var textToCopy = `http://${ip_address}:5000/${user}/${filename}`;
+            function copyToClipboard(ip,db,user) {
+                var textToCopy = "http://"+ip+":5000/"+user+"/"+db;
                 
                 var tempInput = document.createElement("textarea");
                 tempInput.value = textToCopy;
@@ -103,7 +104,7 @@ def index(ip_address):
                 continue
             html += f"""
                 <li>
-                    <button class="copy-button" onclick="copyToClipboard('{file}', '{user}')">Zit Clone</button>
+                    <button class="copy-button" onclick="copyToClipboard('{ip_address}','{file[:-3]}','{user}')">Zit Clone</button>
                     {file}
                 </li>
             """
