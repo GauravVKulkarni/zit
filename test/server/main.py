@@ -1,9 +1,6 @@
 import os
-import socket
 
-def index():
-    hostname = socket.gethostname()
-    ip_address = socket.gethostbyname(hostname)
+def index(ip_address):
     html = """
     <!DOCTYPE html>
     <html>
@@ -64,7 +61,10 @@ def index():
         <title>ZITHUB</title>
         <script>
             function copyToClipboard(file, user) {
-                var textToCopy = f"{ip_address}"+','+file + ', ' + user;
+                console.log(file, user)
+                var ip_address = """+f"'{ip_address}'"+""";
+                var filename = file.slice(0, -3)
+                var textToCopy = `http://${ip_address}:5000/${user}/${filename}`;
                 
                 var tempInput = document.createElement("textarea");
                 tempInput.value = textToCopy;
