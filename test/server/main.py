@@ -1,7 +1,8 @@
 import os
 
-def index():
+def index(ip_address):
     html = """
+
     <!DOCTYPE html>
     <html>
     <head>
@@ -53,7 +54,7 @@ def index():
             }
             .copy-button:hover {
                 color:white;
-                background-color:black;
+                background-color: #4CAF50;
             }
 
             .tick-mark {
@@ -64,20 +65,25 @@ def index():
 
         <title>ZITHUB</title>
         <script>
-            function copyToClipboard(ip,db,user) {
-                var textToCopy = "http://"+ip+":5000/"+user+"/"+db;
-                
+            function copyToClipboard(ip, db, user, button) {
+                var textToCopy = "http://" + ip + ":5000/" + user + "/" + db;
+
                 var tempInput = document.createElement("textarea");
                 tempInput.value = textToCopy;
                 document.body.appendChild(tempInput);
-                
+
                 tempInput.select();
                 tempInput.setSelectionRange(0, 99999);
-                
+
                 document.execCommand("copy");
-                
+
                 document.body.removeChild(tempInput);
-                
+
+                // Change the button text to "Copied" for 3 seconds
+                button.innerHTML = "Copied";
+                setTimeout(function() {
+                    button.innerHTML = "Zit Clone";
+                }, 3000);
             }
         </script>
     </head>
@@ -104,8 +110,8 @@ def index():
                 continue
             html += f"""
                 <li>
-                    <button class="copy-button" onclick="copyToClipboard('{ip_address}','{file[:-3]}','{user}')">Zit Clone</button>
-                    {file}
+                    <button class="copy-button" onclick="copyToClipboard('{ip_address}', '{file[:-3]}', '{user}', this)">Zit Clone</button>
+                    {file[:-3]}
                 </li>
             """
         html += """
