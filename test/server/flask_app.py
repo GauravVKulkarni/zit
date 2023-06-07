@@ -4,10 +4,13 @@ import re
 import socket
 import main
 
+hostname = socket.gethostname()
+ip_address = socket.gethostbyname(hostname)
+
 app = Flask(__name__)
 @app.route('/')
 def index():
-    return main.index()
+    return main.index(ip_address)
     
 
 
@@ -98,8 +101,7 @@ def search():
 
 if __name__ == '__main__': 
           # run the app
-    hostname = socket.gethostname()
-    ip_address = socket.gethostbyname(hostname)
+    
     app.run(host=ip_address, port=5000, debug=True)
     print("running on ip_address: " + ip_address)
         

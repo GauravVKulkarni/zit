@@ -66,7 +66,7 @@ def main():
         # git.py log
         case 'log':
             if len(sys.argv) != 2:
-                sys.exit('Invalid command => Usage: git.py clone 1')
+                sys.exit('Invalid command => Usage: git.py log 1')
             log()
             
         case _:
