@@ -80,6 +80,7 @@ def index():
                 document.execCommand("copy");
                 
                 document.body.removeChild(tempInput);
+                alert("Successfull Copied")
                 
             }
         </script>
