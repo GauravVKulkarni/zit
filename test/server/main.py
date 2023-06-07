@@ -54,6 +54,10 @@ def index():
                 margin-top: 10px;
                 cursor: pointer;
             }
+            .copy-button:hover {
+                color:white;
+                background-color:black;
+            }
 
             .tick-mark {
                 color: #4CAF50;
@@ -63,8 +67,8 @@ def index():
 
         <title>ZITHUB</title>
         <script>
-            function copyToClipboard(file, user) {
-                var textToCopy = f"{ip_address}"+','+file + ', ' + user;
+            function copyToClipboard(ip,db,user) {
+                var textToCopy = "http://"+ip+":5000/"+user+"/"+db;
                 
                 var tempInput = document.createElement("textarea");
                 tempInput.value = textToCopy;
@@ -103,7 +107,7 @@ def index():
                 continue
             html += f"""
                 <li>
-                    <button class="copy-button" onclick="copyToClipboard('{file}', '{user}')">Zit Clone</button>
+                    <button class="copy-button" onclick="copyToClipboard('{ip_address}','{file[:-3]}','{user}')">Zit Clone</button>
                     {file}
                 </li>
             """
