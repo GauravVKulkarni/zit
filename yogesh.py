@@ -9,40 +9,40 @@ import turtle
 # - working tree (commit_id unique primary key, message, Branch_name, time Text)
 #  - commitfolders(commit_id, folder_id, file_id)
 #  - folder (folder_id, folder_name, subfolder_id, file_id)
-#  - files (id, file_name, content){ import os, os me se path lo; .zit folder me jao jis me database hai. agar databse raha to insert karo nahi raha to error raise karo, 
-
+#  - files (id, file_name, content){ import os, os me se path lo; .zit folder me jao jis me database hai. agar databse raha to insert karo nahi raha to error raise karo,
 
 
 def get_file_content(file_path):
     try:
-        with open(file_path, 'rb') as file:
+        with open(file_path, "rb") as file:
             content = file.read()
             return content
     except FileNotFoundError:
         print("File not found.", file_path)
         return None
 
+
 def delete_files_from_database(table, id):
-    subfolders = get_subid_by_id('folder', id)
+    subfolders = get_subid_by_id("folder", id)
     delete_row_by_id(table, id)
     if not subfolders:
         return
     print(subfolders)
-    for subfolder in map(int, subfolders.split(',')):
+    for subfolder in map(int, subfolders.split(",")):
         delete_files_from_database(table, subfolder)
+
 
 # if __name__ == '__main__':
 
 
 def log():
-    conn = sqlite3.connect('.zit/database.db')
+    conn = sqlite3.connect(".zit/database.db")
     cursor = conn.cursor()
 
     # Retrieve data from the database
     # Retrieve data from the database
     cursor.execute("SELECT id, message, branch_name, time FROM working_tree")
     commits = cursor.fetchall()
-
 
     def create_scrollable_window():
         root = tk.Tk()
@@ -75,7 +75,7 @@ def log():
         def draw_bullet_point():
             t.penup()
             t.pendown()
-            t.fillcolor('black')
+            t.fillcolor("black")
             t.dot(12)
             t.penup()
             t.pendown()
@@ -88,7 +88,11 @@ def log():
             t.penup()
             t.goto(-200, t.ycor() - 25)  # Adjust the horizontal position of the text
             t.pendown()
-            t.write(f'Message: {message}\nBranch: {branch_name}\nTime: {time}', align='left', font=('Arial', 12))
+            t.write(
+                f"Message: {message}\nBranch: {branch_name}\nTime: {time}",
+                align="left",
+                font=("Arial", 12),
+            )
             t.penup()
             t.goto(-250, t.ycor() - 75)  # Adjust the distance between logs here
             t.pendown()
@@ -98,13 +102,15 @@ def log():
             t.penup()
             t.goto(-250, 250)
             t.pendown()
-            t.write('Zit Log', align='center', font=('Arial', 16, 'bold'))
+            t.write("Zit Log", align="center", font=("Arial", 16, "bold"))
             t.penup()
-            t.goto(-240, t.ycor() - 50)  # Adjust the horizontal position of the first bullet point
+            t.goto(
+                -240, t.ycor() - 50
+            )  # Adjust the horizontal position of the first bullet point
             t.pendown()
 
             if len(commits) == 0:
-                t.write("No Data", align='left', font=('Arial', 12))
+                t.write("No Data", align="left", font=("Arial", 12))
             else:
                 for commit in commits:
                     id, message, branch_name, time = commit

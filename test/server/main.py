@@ -1,5 +1,6 @@
 import os
 
+
 def index(ip_address):
     html = """
 
@@ -96,10 +97,9 @@ def index(ip_address):
             </body>
             </html>
             """
-        return html 
+        return html
 
     for user in os.listdir(os.path.join(os.getcwd(), "uploads")):
-        
         html += f"""
         <div class="card">
             <h3>{user}</h3>
@@ -118,10 +118,10 @@ def index(ip_address):
             </ul>
         </div>
         """
-    
+
     html += """
     </body>
     </html>
     """
-    
+
     return html
