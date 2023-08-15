@@ -1,5 +1,4 @@
-# Python-mini-project
-## git's clone
+# Python-mini-project - "Git" clone
 
 ## Tables
  - working tree (id, commit message, branch name)
