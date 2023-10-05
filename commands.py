@@ -1,6 +1,6 @@
 import os
 import sqlite3
-from basit import (
+from zitdbmanager import (
     insert_file_folder,
     insert_staging_area,
     insert_working_tree,
@@ -8,7 +8,7 @@ from basit import (
     get_subid_by_id,
     delete_row_by_id,
 )
-from yogesh import get_file_content, delete_files_from_database
+from zitlog import get_file_content, delete_files_from_database
 
 # from yogesh import working_tree_insert, commitfolders_insert, folder_insert, files_insert
 

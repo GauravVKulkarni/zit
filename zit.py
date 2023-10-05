@@ -1,9 +1,9 @@
 import os
 import sys
-from irfan import init, add, commit
-from gaurav import clone, push, pull
+from commands import init, add, commit
+from zithubcommands import clone, push, pull
 import re
-from yogesh import log
+from zitlog import log
 
 
 def main():

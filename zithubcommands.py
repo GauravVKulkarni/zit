@@ -1,8 +1,8 @@
 import requests
 import os
 import sys
-from basit import get_last_id, get_subid_by_id
-from irfan import database_to_filesystem
+from zitdbmanager import get_last_id, get_subid_by_id
+from commands import database_to_filesystem
 
 
 def clone(url):

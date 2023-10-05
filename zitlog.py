@@ -1,5 +1,5 @@
 import sqlite3
-from basit import get_subid_by_id, delete_row_by_id
+from zitdbmanager import get_subid_by_id, delete_row_by_id
 
 import tkinter as tk
 import turtle
