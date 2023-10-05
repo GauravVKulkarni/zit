@@ -1,4 +1,6 @@
-# Tables
+# Python-mini-project - "Git" clone
+
+## Tables
  - working tree (id, commit message, branch name)
  - commitfolder(workingtree_id, folder_id, files_id)
  - folders (id, folder_id, folder_name, sub_folder/file_id)
