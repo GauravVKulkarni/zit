@@ -28,7 +28,7 @@
 # Functions
 
 ## git add .
-- sab file/folder add karne hai + content database me store karna hai
+- add all files/folders and store the content in the database
 - .gitignore maybe
 
 ## git commit
@@ -38,9 +38,6 @@
 ## git log
 - git graph
 
-# GitHub
-- lets say pi me ek flask server host to wo localhost access kar sakte kya
-- 
 
 
 ```
